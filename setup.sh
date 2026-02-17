@@ -9,16 +9,6 @@ dotfiles() {
 
 dotfiles checkout
 
-if [ $? != 0 ]; then
-  d=$HOME/.old-config
-  mkdir $d
-  dotfiles checkout 2>&1 | sed -e '1,2d' -e '$d' -e '$d' | while IFS= read -r f; do
-    mkdir -p $(dirname $d/$f)
-    mv $HOME/$f $d/$f
-  done
-  dotfiles checkout
-fi
-
 dotfiles config status.showUntrackedFiles no
 dotfiles config branch.main.remote origin
 dotfiles config branch.main.merge refs/heads/main
